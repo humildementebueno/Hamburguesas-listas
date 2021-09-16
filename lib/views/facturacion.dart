@@ -4,8 +4,11 @@ class Facturacion extends StatefulWidget {
   List PedidosF = [];
   List Hamburgur_titleF = [];
   String Total;
-  // String ci = "";
-  Facturacion(this.PedidosF, this.Hamburgur_titleF, this.Total);
+  String ci;
+  String apellido;
+
+  Facturacion(
+      this.ci, this.apellido, this.PedidosF, this.Hamburgur_titleF, this.Total);
 
   @override
   _FacturacionState createState() => _FacturacionState();
@@ -33,85 +36,109 @@ class _FacturacionState extends State<Facturacion> {
           )
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: ListView(
         children: [
-          table("Hamburguesas", "Cantidad"),
-          //verificando(widget.PedidosF),
-
-          if (widget.PedidosF[0] > 0)
-            table(widget.Hamburgur_titleF[0], widget.PedidosF[0].toString())
-          else
-            SizedBox(
-              height: 0.5,
-            ),
-          if (widget.PedidosF[1] > 0)
-            table(widget.Hamburgur_titleF[1], widget.PedidosF[1].toString())
-          else
-            SizedBox(
-              height: 0.5,
-            ),
-          if (widget.PedidosF[2] > 0)
-            table(widget.Hamburgur_titleF[2], widget.PedidosF[2].toString())
-          else
-            SizedBox(
-              height: 0.5,
-            ),
-          if (widget.PedidosF[3] > 0)
-            table(widget.Hamburgur_titleF[3], widget.PedidosF[3].toString())
-          else
-            SizedBox(
-              height: 0.5,
-            ),
-          if (widget.PedidosF[4] > 0)
-            table(widget.Hamburgur_titleF[4], widget.PedidosF[4].toString())
-          else
-            SizedBox(
-              height: 0.5,
-            ),
-          if (widget.PedidosF[5] > 0)
-            table(widget.Hamburgur_titleF[5], widget.PedidosF[5].toString())
-          else
-            SizedBox(
-              height: 0.5,
-            ),
-          if (widget.PedidosF[6] > 0)
-            table(widget.Hamburgur_titleF[6], widget.PedidosF[6].toString())
-          else
-            SizedBox(
-              height: 0.5,
-            ),
-          if (widget.PedidosF[7] > 0)
-            table(widget.Hamburgur_titleF[7], widget.PedidosF[7].toString())
-          else
-            SizedBox(
-              height: 0.5,
-            ),
-          if (widget.PedidosF[8] > 0)
-            table(widget.Hamburgur_titleF[8], widget.PedidosF[8].toString())
-          else
-            SizedBox(
-              height: 0.5,
-            ),
-          table("TOTAL", widget.Total + " Bs"),
-          SizedBox(
-            height: 20,
-          ),
-          // Text(widget.PedidosF.toString()),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 120),
-            child: RaisedButton(
-                color: Colors.green,
-                child: Text(
-                  "Retornar",
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                }),
-          )
+          tableFact(context),
         ],
       ),
+    );
+  }
+
+  Column tableFact(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          "Nit o Ci: " + widget.ci,
+          style: TextStyle(
+              color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 25),
+        ),
+        Text(
+          "Apellidos: " + widget.apellido,
+          style: TextStyle(
+              color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 25),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        table("Hamburguesas", "Cantidad"),
+        //verificando(widget.PedidosF),
+
+        if (widget.PedidosF[0] > 0)
+          table(widget.Hamburgur_titleF[0], widget.PedidosF[0].toString())
+        else
+          SizedBox(
+            height: 0.5,
+          ),
+        if (widget.PedidosF[1] > 0)
+          table(widget.Hamburgur_titleF[1], widget.PedidosF[1].toString())
+        else
+          SizedBox(
+            height: 0.5,
+          ),
+        if (widget.PedidosF[2] > 0)
+          table(widget.Hamburgur_titleF[2], widget.PedidosF[2].toString())
+        else
+          SizedBox(
+            height: 0.5,
+          ),
+        if (widget.PedidosF[3] > 0)
+          table(widget.Hamburgur_titleF[3], widget.PedidosF[3].toString())
+        else
+          SizedBox(
+            height: 0.5,
+          ),
+        if (widget.PedidosF[4] > 0)
+          table(widget.Hamburgur_titleF[4], widget.PedidosF[4].toString())
+        else
+          SizedBox(
+            height: 0.5,
+          ),
+        if (widget.PedidosF[5] > 0)
+          table(widget.Hamburgur_titleF[5], widget.PedidosF[5].toString())
+        else
+          SizedBox(
+            height: 0.5,
+          ),
+        if (widget.PedidosF[6] > 0)
+          table(widget.Hamburgur_titleF[6], widget.PedidosF[6].toString())
+        else
+          SizedBox(
+            height: 0.5,
+          ),
+        if (widget.PedidosF[7] > 0)
+          table(widget.Hamburgur_titleF[7], widget.PedidosF[7].toString())
+        else
+          SizedBox(
+            height: 0.5,
+          ),
+        if (widget.PedidosF[8] > 0)
+          table(widget.Hamburgur_titleF[8], widget.PedidosF[8].toString())
+        else
+          SizedBox(
+            height: 0.5,
+          ),
+        table("TOTAL", widget.Total + " Bs"),
+        SizedBox(
+          height: 20,
+        ),
+        // Text(widget.PedidosF.toString()),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 120),
+          child: RaisedButton(
+              color: Colors.green,
+              child: Text(
+                "Salir",
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
+        )
+      ],
     );
   }
 

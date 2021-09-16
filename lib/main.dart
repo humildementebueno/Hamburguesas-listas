@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hamburguesas/views/facturacion.dart';
+import 'package:hamburguesas/views/ventas.dart';
 
 void main() {
   runApp(MyApp());
@@ -60,6 +62,11 @@ class _PrincipalState extends State<Principal> {
   int puntero_image = 0;
   String _cantidad = "";
   String _total = "0";
+  TextEditingController ci = TextEditingController();
+  TextEditingController apellido = TextEditingController();
+  String usu = "";
+  String ape = "";
+  List VentasRealizadasF = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +126,86 @@ class _PrincipalState extends State<Principal> {
               SizedBox(
                 height: 25,
               ),
-              botones_home("Finalizar compra", Colors.amber, 200),
+              Container(
+                width: 220,
+                child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18)),
+                    color: Colors.amber,
+                    child: Text(
+                      "Confirmar compra",
+                      style: TextStyle(color: Colors.white, fontSize: 17.0),
+                    ),
+                    onPressed: () {
+                      /**
+                      *
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return Facturacion(pedidos, hamburguer_title, _total);
+                      }));
+
+                      */
+                      setState(() {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Confirmando"),
+                                backgroundColor: Colors.red[200],
+                                content: Text(
+                                  "Llene los datos restantes:",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25),
+                                ),
+                                actions: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Nit o Ci: ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                      ),
+                                      Expanded(
+                                          child: TextField(
+                                        controller: ci,
+                                        decoration: InputDecoration(
+                                            hintText: " ingrese ci sin LP"),
+                                      )),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Apellidos: ",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15),
+                                          ),
+                                          Expanded(
+                                              child: TextField(
+                                            controller: apellido,
+                                            decoration: InputDecoration(
+                                                hintText: " ingrese apellidos"),
+                                          )),
+                                        ],
+                                      ),
+                                      botones_home(
+                                          "Generar Factura", Colors.green, 200),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            });
+
+                        print("comprando");
+                      });
+                    }),
+              ),
+              botones_home("Ventas realizadas", Colors.amber, 210),
             ],
           ),
         ],
@@ -196,11 +282,26 @@ class _PrincipalState extends State<Principal> {
               }
               _cantidad = pedidos[puntero_image].toString();
             }
-            if (texto == 'Finalizar compra') {
+            if (texto == 'Generar Factura') {
               print("estas Devolviendo");
+              //estoy limpiando texfield
+              usu = ci.text;
+              ape = apellido.text;
+              ci.text = "";
+              apellido.text = "";
+              VentasRealizadasF.add(
+                  Facturacion(usu, ape, pedidos, hamburguer_title, _total));
+              puntero_image = 0;
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (BuildContext context) {
-                return Facturacion(pedidos, hamburguer_title, _total);
+                return Facturacion(usu, ape, pedidos, hamburguer_title, _total);
+              }));
+            }
+            if (texto == 'Ventas realizadas') {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                return Ventas(VentasRealizadasF,
+                    Facturacion(usu, ape, pedidos, hamburguer_title, _total));
               }));
             }
             print("estado del puntero es: " + puntero_image.toString());
